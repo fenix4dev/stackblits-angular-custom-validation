@@ -1,0 +1,39 @@
+<div style="padding: 2rem" class="main_div">
+  <mat-card style="width: 70%">
+    <mat-card-title>Custom Validations</mat-card-title>
+    <mat-card-subtitle>Form</mat-card-subtitle>
+    <div class="row">
+      <div
+        class="col-xs-12 col-sm-12 col-md-6 col-lg-6"
+        *ngFor="let input of formObject"
+      >
+        <mat-form-field
+          appearance="fill"
+          style="width: 100%"
+          [class.mat-form-field-invalid]="input.validation_status"
+        >
+          <mat-label>{{ input.name }}</mat-label>
+          <input
+            matInput
+            setValidationFlag
+            [dirInput]="input"
+            [name]="input.id"
+            [type]="input.type"
+            [placeholder]="input.placeholder"
+            [(ngModel)]="input.value"
+            [required]="input.required"
+            (change)="input.value !== '' && (input.validation_status = false)"
+          />
+        </mat-form-field>
+        <input-validator
+          [inputs]="input"
+          [indicator]="input.validation_status"
+        ></input-validator>
+      </div>
+    </div>
+    <mat-card-actions align="end">
+      <button mat-button (click)="onClearForm()">Clear</button>
+      <button mat-button (click)="onFormSubmit()">Submit</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
